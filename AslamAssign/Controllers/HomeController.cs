@@ -19,6 +19,7 @@ namespace AslamAssign.Controllers
             ProductDal dal = new ProductDal();
             List<Products> list = dal.ProductList();
             ViewBag.catlist = catlist;
+            ViewBag.pageCount = dal.ProductCount().Count;
             return View(list);
         }
 
@@ -49,17 +50,22 @@ namespace AslamAssign.Controllers
             return Json(status, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult Pagination(string pageNo)
+        {
+            ProductDal dal = new ProductDal();
+          
+            return Json(dal.Pagination(pageNo), JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }

@@ -75,4 +75,3 @@ C:\Users\suraj\source\repos\AslamAssign\AslamAssign\bin\Microsoft.CodeDom.Provid
 C:\Users\suraj\source\repos\AslamAssign\AslamAssign\obj\Debug\AslamAssign.csproj.CoreCompileInputs.cache
 C:\Users\suraj\source\repos\AslamAssign\AslamAssign\obj\Debug\AslamAssign.dll
 C:\Users\suraj\source\repos\AslamAssign\AslamAssign\obj\Debug\AslamAssign.pdb
-C:\Users\suraj\source\repos\AslamAssign\AslamAssign\obj\Debug\AslamAssign.csproj.AssemblyReference.cache

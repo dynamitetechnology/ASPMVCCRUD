@@ -78,7 +78,7 @@ namespace AslamAssign.Dal
             try
             {
                 con.Open();
-                using (SqlCommand cmd1 = new SqlCommand("select p.id, p.name, c.id as categoryid, c.name as categoryname  from products p JOIN categories c on p.categoryid = c.id WHERE p.active = 1 AND c.active = 1", con))
+                using (SqlCommand cmd1 = new SqlCommand("select TOP 10 p.id, p.name, c.id as categoryid, c.name as categoryname  from products p JOIN categories c on p.categoryid = c.id WHERE p.active = 1 AND c.active = 1 ORDER BY p.id DESC", con))
                 {
                     cmd1.CommandType = CommandType.Text;
                     using (SqlDataAdapter sda = new SqlDataAdapter(cmd1))
@@ -107,6 +107,48 @@ namespace AslamAssign.Dal
             }
             return products;
         }
+
+
+
+        public List<Products> ProductCount()
+        {
+            List<Products> products = new List<Products>();
+            try
+            {
+                con.Open();
+                using (SqlCommand cmd1 = new SqlCommand("select  p.id, p.name, c.id as categoryid, c.name as categoryname  from products p JOIN categories c on p.categoryid = c.id WHERE p.active = 1 AND c.active = 1 ORDER BY p.id DESC", con))
+                {
+                    cmd1.CommandType = CommandType.Text;
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd1))
+                    {
+                        using (DataTable dt = new DataTable())
+                        {
+                            sda.Fill(dt);
+
+                            foreach (DataRow dr in dt.Rows)
+                            {
+                                Products cat = new Products();
+                                cat.id = Convert.ToInt32(dr[0].ToString());
+                                cat.name = dr[1].ToString();
+                                cat.categoryid = Convert.ToInt32(dr[2].ToString());
+                                cat.categoryname = dr[3].ToString();
+                                products.Add(cat);
+                            }
+                        }
+                    }
+                }
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return products;
+        }
+
+
+
+
 
         public List<Categories> findById(string id)
         {
@@ -147,7 +189,7 @@ namespace AslamAssign.Dal
         {
             try
             {
-                string sql = "update products set name = '" + products.name + "' categoryid = '"+ products.categoryid + "' where id = '" + products.id + "'";
+                string sql = "update products set name = '" + products.name + "', categoryid = '"+ products.categoryid + "' where id = '" + products.id + "'";
                 con.Open();
                 SqlCommand cmd = new SqlCommand(sql, con);
                 int status = cmd.ExecuteNonQuery();
@@ -170,6 +212,44 @@ namespace AslamAssign.Dal
             }
             return 0;
         }
+
+
+        public List<Products> Pagination(string pageNo)
+        {
+            List<Products> products = new List<Products>();
+            try
+            {
+                con.Open();
+                using (SqlCommand cmd1 = new SqlCommand("select p.id, p.name, c.id as categoryid, c.name as categoryname  from products p JOIN categories c on p.categoryid = c.id WHERE p.active = 1 AND c.active = 1 ORDER BY p.id DESC  OFFSET ('"+ pageNo + "' - 1) * 10 ROWS FETCH NEXT 10 ROWS ONLY", con))
+                {
+                    cmd1.CommandType = CommandType.Text;
+                    using (SqlDataAdapter sda = new SqlDataAdapter(cmd1))
+                    {
+                        using (DataTable dt = new DataTable())
+                        {
+                            sda.Fill(dt);
+
+                            foreach (DataRow dr in dt.Rows)
+                            {
+                                Products cat = new Products();
+                                cat.id = Convert.ToInt32(dr[0].ToString());
+                                cat.name = dr[1].ToString();
+                                cat.categoryid = Convert.ToInt32(dr[2].ToString());
+                                cat.categoryname = dr[3].ToString();
+                                products.Add(cat);
+                            }
+                        }
+                    }
+                }
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return products;
+        }
+      
     }
 
 
