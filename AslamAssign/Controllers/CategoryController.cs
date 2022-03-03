@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AslamAssign.Dal;
+using AslamAssign.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +13,39 @@ namespace AslamAssign.Controllers
         // GET: Category
         public ActionResult Index()
         {
-            return View();
+            CategoryDal dal = new CategoryDal();
+            List<Categories> list = dal.CategoriesList();
+            return View(list);
         }
+
+
+        [HttpPost]
+        public JsonResult Insert(Categories cat)
+        {
+            CategoryDal dal = new CategoryDal();
+            int status = dal.insert(cat);
+            return Json(status, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        [HttpPost]
+        public JsonResult Update(Categories cat)
+        {
+            CategoryDal dal = new CategoryDal();
+          int status =   dal.update(cat);
+           return  Json(status, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
+        public JsonResult Delete(Categories cat)
+        {
+            CategoryDal dal = new CategoryDal();
+            int status = dal.delete(cat.id);
+            return Json(status, JsonRequestBehavior.AllowGet);
+        }
+
+
     }
 }
