@@ -75,6 +75,7 @@
     $(document).ready(function () {
         //EDIT DATA
         $("#dataTable").on('click', '.edit-data', function () {
+            $('.insert-category').addClass('d-none')
             $(".update-category").removeClass('d-none')
             $("#exampleModalLabel").html('Update')
             let id = $(this).attr("data-id")

@@ -33,8 +33,8 @@ namespace AslamAssign.Controllers
         public JsonResult Update(Categories cat)
         {
             CategoryDal dal = new CategoryDal();
-          int status =   dal.update(cat);
-           return  Json(status, JsonRequestBehavior.AllowGet);
+            int status =   dal.update(cat);
+            return  Json(status, JsonRequestBehavior.AllowGet);
         }
 
 

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AslamAssign.Dal;
+using AslamAssign.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +12,18 @@ namespace AslamAssign.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+
+            CategoryDal catdal = new CategoryDal();
+            List<Categories> catlist = catdal.CategoriesList();
+
+            ProductDal dal = new ProductDal();
+            List<Products> list = dal.ProductList();
+
+            // MyViewModel viewModel = new MyViewModel();
+            // viewModel.productsList = list;//first table content
+            //viewModel.categoryList = catlist;//second table content
+            ViewBag.catlist = catlist;
+            return View(list);
         }
 
         public ActionResult About()
