@@ -66,7 +66,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Category Name</label>
+                    <label for="exampleInputEmail1">Product Name</label>
                     <input type="text" class="form-control" id="Name" name="Name">
                     <input type="hidden" class="form-control" id="Id" name="Id">
                 </div>
@@ -113,11 +113,13 @@
         $(".insert-category").on('click', function () {
 
             let name = $("#Name").val()
+            let categoryid = $("#categoryid").val()
             $.ajax({
                 type: "POST",
-                url: "/Category/Insert",
+                url: "/Home/Insert",
                 data: {
-                    name: name
+                    name: name,
+                    categoryid: categoryid
                 },
                 success: function (response) {
                     location.reload()

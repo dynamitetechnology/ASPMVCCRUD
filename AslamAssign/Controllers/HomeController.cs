@@ -18,12 +18,35 @@ namespace AslamAssign.Controllers
 
             ProductDal dal = new ProductDal();
             List<Products> list = dal.ProductList();
-
-            // MyViewModel viewModel = new MyViewModel();
-            // viewModel.productsList = list;//first table content
-            //viewModel.categoryList = catlist;//second table content
             ViewBag.catlist = catlist;
             return View(list);
+        }
+
+        [HttpPost]
+        public JsonResult Insert(Products product)
+        {
+            ProductDal dal = new ProductDal();
+            int status = dal.insert(product);
+            return Json(status, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        [HttpPost]
+        public JsonResult Update(Products product)
+        {
+            ProductDal dal = new ProductDal();
+            int status = dal.update(product);
+            return Json(status, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
+        public JsonResult Delete(Products product)
+        {
+            ProductDal dal = new ProductDal();
+            int status = dal.delete(product.id);
+            return Json(status, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult About()
